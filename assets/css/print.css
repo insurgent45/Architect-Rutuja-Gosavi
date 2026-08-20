@@ -1,0 +1,329 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   Rutuja Gosavi — Print / PDF Stylesheet
+   Linked with media="print" — produces a clean multi-page PDF on Ctrl+P
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@page {
+  size: A4;
+  margin: 1.5cm;
+}
+
+/* ─── Force all animated elements to final visible state ─────────────── */
+* {
+  animation: none !important;
+  transition: none !important;
+}
+
+.anim-fade,
+.anim-slide-up,
+[class*="anim-"] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ─── Hide non-print elements ────────────────────────────────────────── */
+.nav,
+.hero__scroll,
+.back-to-top,
+.modal,
+.lightbox,
+#download-pdf,
+.nav__toggle,
+.hero__bg::before,
+.works__filters {
+  display: none !important;
+}
+
+/* ─── Base overrides ─────────────────────────────────────────────────── */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 10pt;
+  line-height: 1.5;
+  color: #1a1a1a;
+  background: #fff;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+a {
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+/* Show link URLs */
+.footer__link span::after,
+.footer__link[href^="mailto"] span::after,
+.footer__link[href^="tel"] span::after {
+  content: none;  /* email/phone already show the value */
+}
+.footer__link[href^="https"] span::after {
+  content: " (" attr(href) ")";
+  font-size: 8pt;
+  color: #666;
+}
+
+/* ─── Layout reset ───────────────────────────────────────────────────── */
+.container {
+  max-width: 100%;
+  padding: 0;
+}
+
+.section {
+  padding: 1.5cm 0 1cm;
+}
+
+/* ─── Hero — compact header, not full-page ───────────────────────────── */
+.hero {
+  min-height: auto;
+  padding: 1.5cm 0 1cm;
+  text-align: left;
+  page-break-after: avoid;
+}
+
+.hero__bg {
+  display: none;
+}
+
+.hero__eyebrow {
+  color: #999;
+  font-size: 8pt;
+  margin-bottom: .3cm;
+}
+
+.hero__name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 28pt;
+  color: #1a1a1a;
+  line-height: 1.1;
+  margin-bottom: .3cm;
+}
+
+.hero__title {
+  font-size: 11pt;
+  color: #555;
+  margin-bottom: .15cm;
+}
+
+.hero__tagline {
+  font-size: 9pt;
+  color: #c07850;
+}
+
+/* ─── About ──────────────────────────────────────────────────────────── */
+.about__grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1cm;
+}
+
+.about__lead {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 13pt;
+  color: #1a1a1a;
+  line-height: 1.4;
+}
+
+.about__bio p {
+  color: #444;
+}
+
+.about__detail h3 {
+  color: #c07850;
+  font-size: 8pt;
+}
+
+.about__edu-degree {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.about__edu-school,
+.about__edu-year,
+.about__detail p {
+  color: #555;
+}
+
+/* ─── Experience ─────────────────────────────────────────────────────── */
+.timeline {
+  padding-left: 1cm;
+}
+
+.timeline::before {
+  background: #ddd;
+}
+
+.timeline__item {
+  break-inside: avoid;
+  padding-bottom: .8cm;
+}
+
+.timeline__marker {
+  background: #c07850;
+  border-color: #fff;
+}
+
+.timeline__date {
+  color: #c07850;
+  font-size: 8pt;
+}
+
+.timeline__role {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 13pt;
+  color: #1a1a1a;
+}
+
+.timeline__firm {
+  color: #555;
+}
+
+.timeline__bullets li {
+  color: #444;
+  font-size: 9pt;
+}
+
+.timeline__bullets li::before {
+  background: #999;
+}
+
+/* ─── Selected Works ─────────────────────────────────────────────────── */
+.works {
+  background: transparent;
+  break-before: page;
+}
+
+.works__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .8cm;
+}
+
+.project-card {
+  break-inside: avoid;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.project-card__img {
+  aspect-ratio: 16/10;
+}
+
+.project-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-card__overlay {
+  display: none;
+}
+
+.project-card__body {
+  padding: .4cm;
+}
+
+.project-card__category {
+  color: #c07850;
+  font-size: 7pt;
+}
+
+.project-card__title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 11pt;
+  color: #1a1a1a;
+}
+
+.project-card__meta {
+  color: #666;
+  font-size: 8pt;
+}
+
+/* ─── Skills ─────────────────────────────────────────────────────────── */
+.skills-section {
+  break-before: page;
+}
+
+.skills__grid {
+  grid-template-columns: 1fr 1fr;
+  gap: .6cm;
+}
+
+.skills__category {
+  border: 1px solid #ddd;
+  padding: .5cm;
+  break-inside: avoid;
+}
+
+.skills__cat-number {
+  color: #c07850;
+  font-size: 8pt;
+}
+
+.skills__cat-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 11pt;
+  color: #1a1a1a;
+}
+
+.skills__cat-desc {
+  color: #555;
+  font-size: 9pt;
+}
+
+.skills__tools {
+  border-top: 1px solid #ddd;
+  padding-top: .4cm;
+}
+
+.skills__tools-label {
+  color: #c07850;
+}
+
+.pill {
+  border-color: #ddd;
+  color: #444;
+  font-size: 8pt;
+  padding: .15cm .4cm;
+}
+
+/* ─── Footer / Contact ───────────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid #ddd;
+}
+
+.footer__grid {
+  flex-direction: row;
+}
+
+.footer__link,
+.footer__location {
+  color: #444;
+  font-size: 9pt;
+}
+
+.footer__icon {
+  width: 14px;
+  height: 14px;
+}
+
+.footer__bottom {
+  border-top: 1px solid #ddd;
+  color: #999;
+  font-size: 8pt;
+}
+
+/* ─── Section headers in print ───────────────────────────────────────── */
+.section__number {
+  color: #c07850;
+}
+
+.section__title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  color: #1a1a1a;
+  font-size: 18pt;
+}
+
+.section__header {
+  margin-bottom: .6cm;
+}
