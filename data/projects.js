@@ -9,29 +9,44 @@ const CATEGORIES = [
   { id: "revit", label: "Revit & Digital Modeling" },
 ];
 
+const CATEGORY_ORDER = {
+  "architecture": ["teak-county-resort", "manorath-greens", "sports-complex", "group-housing", "marathwada-trade-center"],
+  "interior": ["ardhila-restaurant", "sales-office-punawale", "aquarius-resort", "mr-kate-residence"],
+  "working-drawings": ["rajhans-silvana", "rajhans-maxton", "manorath-greens", "sunnys-world", "sales-office-punawale"],
+  "revit": ["sports-complex", "group-housing", "zen-dale-revit-project"]
+};
+
 const PROJECTS = [
   // ─── 01. Architecture & Space Planning ────────────────────────────────
 
   {
-    slug: "zen-dale-landscape",
-    title: "Zen-Dale Landscape Resort",
+    slug: "zen-dale-revit-project",
+    title: "Zen-Dale Revit Project",
     category: "architecture",
-    typology: "Landscape Architecture",
+    typology: "Landscape Architecture / BIM",
     location: "Urse, Pune",
     client: "Mr. Parag Patil",
     firm: "Eco Envisage Pvt. Ltd.",
-    role: "Landscape working drawings, site sections, planting design",
+    role: "Landscape planning, Revit BIM modeling, detailing",
     year: "2025",
     summary:
-      "Multi-zone landscape resort featuring long sectional cuts through kids' play areas, pool zones, water features, lawns, and pathways. Includes Pergola C (steel + RCC with ferrocrete decking) and a 10-species tree plantation layout with detailed planting schedule.",
+      "A comprehensive multi-zone landscape resort project showcasing both traditional working drawings and complete Revit BIM documentation. Features sectional cuts through kids' play areas, a multipurpose hall, pergola structures, and detailed tree plantation layouts—all fully coordinated in 3D.",
     images: [
-      "assets/images/projects/zen-dale-landscape/site-section-a.jpg",
-      "assets/images/projects/zen-dale-landscape/site-section-b.jpg",
-      "assets/images/projects/zen-dale-landscape/site-section-zone02.jpg",
-      "assets/images/projects/zen-dale-landscape/pergola-c.jpg",
-      "assets/images/projects/zen-dale-landscape/tree-plantation.jpg",
+      "assets/images/projects/zen-dale-revit-project/ground-floor-plan.jpg",
+      "assets/images/projects/zen-dale-revit-project/building-section.jpg",
+      "assets/images/projects/zen-dale-revit-project/site-section-a.jpg",
+      "assets/images/projects/zen-dale-revit-project/site-section-b.jpg",
+      "assets/images/projects/zen-dale-revit-project/site-section-zone02.jpg",
+      "assets/images/projects/zen-dale-revit-project/pergola-c.jpg",
+      "assets/images/projects/zen-dale-revit-project/tree-plantation.jpg",
+      "assets/images/projects/zen-dale-revit-project/pergola-revit.jpg",
+      "assets/images/projects/zen-dale-revit-project/site-section-revit.jpg",
+      "assets/images/projects/zen-dale-revit-project/3d-view-1.jpg",
+      "assets/images/projects/zen-dale-revit-project/3d-view-2.jpg",
+      "assets/images/projects/zen-dale-revit-project/hall-section-revit.jpg",
+      "assets/images/projects/zen-dale-revit-project/hall-plan-revit.jpg",
     ],
-    tags: ["Landscape", "AutoCAD", "Working Drawings", "Planting Design"],
+    tags: ["Landscape", "Revit", "BIM", "Working Drawings", "Planting Design"],
   },
 
   {
@@ -40,21 +55,18 @@ const PROJECTS = [
     category: "architecture",
     typology: "Hospitality / Resort",
     location: "Khed Shivapur, Pune",
-    firm: "Eco Envisage Pvt. Ltd.",
+    firm: "Wyoma Architects",
     role: "Concept design, site planning, 3D visualization",
-    year: "2025",
+    year: "2026",
     summary:
       'Proposed tropical retreat with 30 exclusive cottages (Standard & Suite), emphasizing a "Natural Harmony" theme. Features glass banquet, restaurant, swimming pool, indoor sports, library, private dining, and sales office. Two complete site plan options explored.',
     images: [
+      "assets/images/projects/teak-county-resort/cover.jpg",
+      "assets/images/projects/teak-county-resort/site-plan-1.jpg",
       "assets/images/projects/teak-county-resort/overview.jpg",
       "assets/images/projects/teak-county-resort/site-plan-1-bubble.jpg",
-      "assets/images/projects/teak-county-resort/site-plan-1.jpg",
       "assets/images/projects/teak-county-resort/cottage-3d-option1.jpg",
       "assets/images/projects/teak-county-resort/standard-cottage-plan.jpg",
-      "assets/images/projects/teak-county-resort/site-plan-2-bubble.jpg",
-      "assets/images/projects/teak-county-resort/site-plan-2.jpg",
-      "assets/images/projects/teak-county-resort/cottage-3d-option2.jpg",
-      "assets/images/projects/teak-county-resort/suite-cottage-3d.jpg",
       "assets/images/projects/teak-county-resort/suite-cottage-plan.jpg",
       "assets/images/projects/teak-county-resort/sales-office-plan.jpg",
       "assets/images/projects/teak-county-resort/sales-office-3d-1.jpg",
@@ -64,25 +76,24 @@ const PROJECTS = [
   },
 
   {
-    slug: "performing-arts-center",
-    title: "Performing Arts Center",
+    slug: "sports-complex",
+    title: "Sports Complex",
     category: "architecture",
-    typology: "Cultural / Institutional",
-    location: "Aurangabad",
-    firm: "JNEC MGM University (7th Semester)",
-    role: "Concept design, planning, visualization",
+    typology: "Sports / Recreational",
+    location: "Academic Project",
+    firm: "JNEC MGM University (4th Semester)",
+    role: "Concept design, site planning, facility layout",
     year: "2024",
     summary:
-      'A Performing Arts Center for dance, music, and drama - designed around the concept of "movement." Curved building forms and pathways reflect the intrinsic motion of each art form. Includes academic block, hostel, music block, auditorium, theatre, dining hall, and sports building.',
+      "In my 4th semester, I designed a sports complex encompassing basketball, badminton, lawn tennis, table tennis, a gym, and a multipurpose hall alongside a cafeteria. The layout emphasizes pedestrian circulation while ensuring optimal privacy and functional access between activity zones.",
     images: [
-      "assets/images/projects/performing-arts-center/concept.jpg",
-      "assets/images/projects/performing-arts-center/site-plan.jpg",
-      "assets/images/projects/performing-arts-center/academic-block-plan.jpg",
-      "assets/images/projects/performing-arts-center/hostel-block.jpg",
-      "assets/images/projects/performing-arts-center/music-block.jpg",
-      "assets/images/projects/performing-arts-center/dining-sports.jpg",
+      "assets/images/projects/sports-complex/cover.jpg",
+      "assets/images/projects/sports-complex/concept.jpg",
+      "assets/images/projects/sports-complex/site-plan.jpg",
+      "assets/images/projects/sports-complex/indoor-sports-club.jpg",
+      "assets/images/projects/sports-complex/admin-cafeteria-details.jpg",
     ],
-    tags: ["Academic", "Concept Design", "Cultural", "SketchUp"],
+    tags: ["Academic", "Sports Facility", "Concept Layout", "Site Planning"],
   },
 
   {
@@ -97,6 +108,7 @@ const PROJECTS = [
     summary:
       'Group housing scheme featuring bungalows, rowhouses, and 2BHK/3BHK apartments. Guided by the concept of "visual delight" - expansive open areas, luxurious living spaces, and captivating facades define the community layout.',
     images: [
+      "assets/images/projects/group-housing/title-card.png",
       "assets/images/projects/group-housing/concept.jpg",
       "assets/images/projects/group-housing/site-plan.jpg",
       "assets/images/projects/group-housing/bungalow.jpg",
@@ -121,6 +133,8 @@ const PROJECTS = [
     summary:
       "Tropical Forest-themed restaurant with double-height dining, curved ceiling elements, ambient profile lighting, cascading creepers, exposed brick walls, and tropical plantations. Features indoor/outdoor dining, bar counter, and cabana dining - extensive day and night 3D visualization package.",
     images: [
+      "assets/images/projects/ardhila-restaurant/cover.jpg",
+      "assets/images/projects/ardhila-restaurant/title-slide.jpg",
       "assets/images/projects/ardhila-restaurant/concept.jpg",
       "assets/images/projects/ardhila-restaurant/entrance-day.jpg",
       "assets/images/projects/ardhila-restaurant/entrance-night.jpg",
@@ -149,6 +163,7 @@ const PROJECTS = [
     summary:
       "Complete sales office interior package - reception & waiting, discussion booths, conference room, director's cabin, and pantry. Delivered layout plans, room elevations, ceiling/electrical layouts, and 3D visualization.",
     images: [
+      "assets/images/projects/sales-office-punawale/cover.jpg",
       "assets/images/projects/sales-office-punawale/layout-plan.jpg",
       "assets/images/projects/sales-office-punawale/elevation-front.jpg",
       "assets/images/projects/sales-office-punawale/elevation-side.jpg",
@@ -172,6 +187,7 @@ const PROJECTS = [
     summary:
       "Resort pool & club house with outdoor seating, bar counter, DJ console, and dance area. Also designed hotel room interiors (Room 101 & 211) - furniture layouts, sectional elevations, wardrobe/TV detailing, and 3D views.",
     images: [
+      "assets/images/projects/aquarius-resort/cover.jpg",
       "assets/images/projects/aquarius-resort/club-layout.jpg",
       "assets/images/projects/aquarius-resort/entrance-wall.jpg",
       "assets/images/projects/aquarius-resort/club-front-elevation.jpg",
@@ -199,31 +215,13 @@ const PROJECTS = [
       "assets/images/projects/sunnys-world/landscape-3d.jpg",
       "assets/images/projects/sunnys-world/swiss-room-plan.jpg",
       "assets/images/projects/sunnys-world/swiss-room-sections.jpg",
-      "assets/images/projects/sunnys-world/swiss-room-3d.jpg",
     ],
     tags: ["Interior Design", "Landscape", "Hospitality", "AutoCAD"],
   },
 
   // ─── 03. Working Drawings ─────────────────────────────────────────────
 
-  {
-    slug: "zen-dale-multipurpose-hall",
-    title: "Zen-Dale - Multipurpose Hall",
-    category: "working-drawings",
-    typology: "Community / Recreation",
-    location: "Urse, Pune",
-    client: "Mr. Parag Patil",
-    firm: "Eco Envisage Pvt. Ltd.",
-    role: "Working drawings, detailing, door/window schedules",
-    year: "2025",
-    summary:
-      "Two-storey multipurpose hall - ground floor hall (9m x 17.8m) with pantry/service, first floor gym, green room, toilets and balcony. Rooftop 150,000 L water tank (OHWT). Full door/window schedule, ~250 sq.m built-up area.",
-    images: [
-      "assets/images/projects/zen-dale-multipurpose-hall/ground-floor-plan.jpg",
-      "assets/images/projects/zen-dale-multipurpose-hall/building-section.jpg",
-    ],
-    tags: ["Working Drawings", "AutoCAD", "Architecture"],
-  },
+
 
   {
     slug: "rajhans-silvana",
@@ -289,25 +287,52 @@ const PROJECTS = [
 
   // ─── 04. Revit & Digital Modeling ─────────────────────────────────────
 
+
   {
-    slug: "zen-dale-bim",
-    title: "Zen-Dale - Revit BIM Models",
-    category: "revit",
-    typology: "BIM / Digital Modeling",
-    location: "Urse, Pune",
-    firm: "Eco Envisage Pvt. Ltd.",
-    role: "Revit BIM modeling of landscape & building elements",
+    slug: "marathwada-trade-center",
+    title: "Marathwada Business Trade Center",
+    category: "architecture",
+    typology: "Thesis Project",
+    location: "Academic",
+    firm: "Academic (Thesis)",
+    role: "Architectural design, site planning, visualization",
+    year: "2024",
+    summary:
+      "A comprehensive thesis project for a Business Trade Center featuring a convention center, hotel, incubation center, cafeteria, and extensive site planning. Designed to integrate various business and hospitality functions within a unified campus.",
+    images: [
+      "assets/images/projects/marathwada-trade-center/cover.jpg",
+      "assets/images/projects/marathwada-trade-center/theory.jpg",
+      "assets/images/projects/marathwada-trade-center/site-plan.jpg",
+      "assets/images/projects/marathwada-trade-center/convention-center.jpg",
+      "assets/images/projects/marathwada-trade-center/hotel.jpg",
+      "assets/images/projects/marathwada-trade-center/incubation-center.jpg",
+      "assets/images/projects/marathwada-trade-center/cafeteria.jpg"
+    ],
+    tags: ["Academic", "Thesis", "Commercial", "Architecture"]
+  },
+
+  {
+    slug: "mr-kate-residence",
+    title: "Mr. Kate Residence",
+    category: "interior",
+    typology: "Residential Interior",
+    location: "Pune",
+    firm: "Wyoma Architects",
+    role: "Interior Design & Visualization",
     year: "2025",
     summary:
-      "Complete Revit BIM documentation of the Zen-Dale project - pergola structure, site sections, multipurpose hall plan and section modeled in Revit with coordinated 3D views. Demonstrates BIM proficiency alongside traditional CAD drafting.",
+      "Comprehensive interior design and space planning for a residential project, including detailed layouts, material selections, and 3D visualization.",
     images: [
-      "assets/images/projects/zen-dale-bim/pergola-revit.jpg",
-      "assets/images/projects/zen-dale-bim/site-section-revit.jpg",
-      "assets/images/projects/zen-dale-bim/3d-view-1.jpg",
-      "assets/images/projects/zen-dale-bim/3d-view-2.jpg",
-      "assets/images/projects/zen-dale-bim/hall-section-revit.jpg",
-      "assets/images/projects/zen-dale-bim/hall-plan-revit.jpg",
+      "assets/images/projects/mr-kate-residence/cover.jpg",
+      "assets/images/projects/mr-kate-residence/slide_1.jpg",
+      "assets/images/projects/mr-kate-residence/slide_2.jpg",
+      "assets/images/projects/mr-kate-residence/slide_3.jpg",
+      "assets/images/projects/mr-kate-residence/slide_4.jpg",
+      "assets/images/projects/mr-kate-residence/slide_5.jpg",
+      "assets/images/projects/mr-kate-residence/slide_6.jpg",
+      "assets/images/projects/mr-kate-residence/slide_7.jpg",
+      "assets/images/projects/mr-kate-residence/slide_8.jpg"
     ],
-    tags: ["Revit", "BIM", "3D Modeling", "Digital Documentation"],
-  },
+    tags: ["Interior Design", "Residential", "Visualization"]
+  }
 ];

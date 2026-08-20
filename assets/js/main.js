@@ -185,51 +185,69 @@ function filterProjects(categoryId) {
     btn.classList.toggle("active", btn.dataset.filter === categoryId)
   );
 
-  // Show/hide cards
-  document.querySelectorAll(".project-card").forEach((card) => {
-    const match =
-      categoryId === "all" || card.dataset.category === categoryId;
-    card.style.display = match ? "" : "none";
+  const grid = document.getElementById("works-grid");
+  if (!grid || typeof PROJECTS === "undefined" || typeof CATEGORY_ORDER === "undefined") return;
+  
+  grid.innerHTML = ""; // Clear existing cards
+
+  let slugsToRender = [];
+  if (categoryId === "all") {
+    // Collect all slugs in order, removing duplicates for the "All" view
+    const allSlugs = Object.values(CATEGORY_ORDER).flat();
+    slugsToRender = [...new Set(allSlugs)];
+  } else {
+    slugsToRender = CATEGORY_ORDER[categoryId] || [];
+  }
+
+  slugsToRender.forEach((slug) => {
+    const project = PROJECTS.find(p => p.slug === slug);
+    if (project) {
+      renderProjectCard(project, grid);
+    }
   });
+
+  // Re-observe new cards for animation
+  initScrollAnimations();
 }
 
-/* ─── Render Project Cards ───────────────────────────────────────────── */
+function renderProjectCard(project, grid) {
+  const card = document.createElement("article");
+  card.className = "project-card anim-slide-up";
+  card.dataset.slug = project.slug;
+
+  // Determine a primary category label to display on the card
+  let categoryLabel = "";
+  for (const catId of Object.keys(CATEGORY_ORDER)) {
+    if (CATEGORY_ORDER[catId].includes(project.slug)) {
+      categoryLabel = CATEGORIES.find(c => c.id === catId)?.label || "";
+      break;
+    }
+  }
+
+  card.innerHTML = `
+    <div class="project-card__img">
+      <img src="${project.images[0]}" alt="${project.title}" loading="lazy">
+      <div class="project-card__overlay">
+        <span class="project-card__view">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          View Project
+        </span>
+      </div>
+    </div>
+    <div class="project-card__body">
+      <p class="project-card__category">${categoryLabel}</p>
+      <h3 class="project-card__title">${project.title}</h3>
+      <p class="project-card__meta">${project.firm} · ${project.year}</p>
+    </div>
+  `;
+
+  card.addEventListener("click", () => open3DViewer(project));
+  grid.appendChild(card);
+}
+
+/* ─── Render Project Cards (Initial) ─────────────────────────────────── */
 function renderProjects() {
-  const grid = document.getElementById("works-grid");
-  if (!grid || typeof PROJECTS === "undefined") return;
-
-  PROJECTS.forEach((project) => {
-    const card = document.createElement("article");
-    card.className = "project-card anim-slide-up";
-    card.dataset.category = project.category;
-    card.dataset.slug = project.slug;
-
-    const categoryLabel =
-      CATEGORIES.find((c) => c.id === project.category)?.label || "";
-
-    card.innerHTML = `
-      <div class="project-card__img">
-        <img src="${project.images[0]}" alt="${project.title}" loading="lazy">
-        <div class="project-card__overlay">
-          <span class="project-card__view">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-            View Project
-          </span>
-        </div>
-      </div>
-      <div class="project-card__body">
-        <p class="project-card__category">${categoryLabel}</p>
-        <h3 class="project-card__title">${project.title}</h3>
-        <p class="project-card__meta">${project.firm} · ${project.year}</p>
-      </div>
-    `;
-
-    card.addEventListener("click", () => open3DViewer(project));
-    grid.appendChild(card);
-  });
-
-  // Observe new cards for animation
-  initScrollAnimations();
+  filterProjects("all");
 }
 
 /* ─── 2D Horizontal Viewer with Pan/Zoom ──────────────────────────────── */
@@ -275,8 +293,9 @@ function changeSlide(direction) {
   const scene = document.getElementById("viewer-scene");
   const targetSheet = sceneSheets[activeSheetIndex];
   
-  // Center the target sheet. offsetLeft includes the 4rem (64px) padding left.
-  scene.scrollTo({ left: targetSheet.offsetLeft - 64, behavior: 'smooth' }); 
+  // Center the target sheet based on dynamic computed padding
+  const paddingLeft = parseFloat(getComputedStyle(scene).paddingLeft) || 0;
+  scene.scrollTo({ left: targetSheet.offsetLeft - paddingLeft, behavior: 'smooth' }); 
   
   document.getElementById("viewer-progress").textContent = `${activeSheetIndex + 1} / ${sceneSheets.length}`;
 }
@@ -288,10 +307,15 @@ function init3DViewer() {
   
   const prevBtn = document.getElementById("viewer-prev");
   const nextBtn = document.getElementById("viewer-next");
+  const uiToggleBtn = document.getElementById("viewer-ui-toggle");
+  const uiPanel = document.getElementById("viewer-ui");
 
   closeBtn?.addEventListener("click", close3DViewer);
   prevBtn?.addEventListener("click", () => changeSlide(-1));
   nextBtn?.addEventListener("click", () => changeSlide(1));
+  uiToggleBtn?.addEventListener("click", () => {
+    uiPanel?.classList.toggle("collapsed");
+  });
 
   // Mouse wheel Zoom
   scene.addEventListener("wheel", (e) => {
@@ -331,6 +355,39 @@ function init3DViewer() {
   window.addEventListener("mouseup", () => {
     isPanning = false;
   });
+
+  // Touch Swipe & Pan for Mobile
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  scene.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    if (currentScale > 1) {
+      isPanning = true;
+      startPanX = e.touches[0].clientX - currentPanX;
+      startPanY = e.touches[0].clientY - currentPanY;
+    }
+  }, { passive: true });
+  
+  scene.addEventListener("touchmove", (e) => {
+    if (!isPanning || currentScale <= 1) return;
+    currentPanX = e.touches[0].clientX - startPanX;
+    currentPanY = e.touches[0].clientY - startPanY;
+    applyTransform();
+  }, { passive: true });
+  
+  scene.addEventListener("touchend", (e) => {
+    isPanning = false;
+    touchEndX = e.changedTouches[0].screenX;
+    if (currentScale > 1) return; // Don't swipe if zoomed in (they are panning)
+    const swipeThreshold = 50;
+    if (touchEndX < touchStartX - swipeThreshold) {
+      changeSlide(1);
+    }
+    if (touchEndX > touchStartX + swipeThreshold) {
+      changeSlide(-1);
+    }
+  }, { passive: true });
 
   // Keyboard navigation
   document.addEventListener("keydown", (e) => {

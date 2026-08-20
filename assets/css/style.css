@@ -262,25 +262,26 @@ button {
 }
 
 .hero__eyebrow {
-  font-size: .8rem;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1.5rem;
-}
-
-.hero__name {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 6vw, 4rem);
+  font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 400;
   line-height: .95;
   letter-spacing: -.02em;
   color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.hero__name {
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--accent);
   margin-bottom: 1.5rem;
+  font-weight: 400;
 }
 
 .hero__title {
-  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
   font-weight: 300;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -745,6 +746,11 @@ button {
   transition: all 0.3s ease;
 }
 
+/* UI Toggle Button (Mobile Only) */
+.viewer-3d__ui-toggle {
+  display: none;
+}
+
 /* Navigation Buttons */
 .viewer-3d__nav {
   position: absolute;
@@ -857,30 +863,64 @@ button {
 
 @media (max-width: 900px) {
   .viewer-3d {
-    flex-direction: column-reverse;
-  }
-  
-  .viewer-3d__ui {
-    flex: 0 0 auto;
-    padding: 2rem;
-    border-right: none;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    max-height: 40vh;
+    display: block; /* Remove flex column-reverse */
   }
   
   .viewer-3d__viewport {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 54px; /* Reserve space for the collapsed UI handle */
+    width: 100%;
+    z-index: 1;
+  }
+  
+  .viewer-3d__ui {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 0; /* Padding moved to info */
+    border-right: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    height: 55vh; /* Fixed height for the sheet */
+    background: rgba(20, 20, 22, 0.85);
+    backdrop-filter: blur(15px);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .viewer-3d__info {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    overflow-y: auto;
     flex: 1;
   }
   
+  .viewer-3d__ui.collapsed {
+    transform: translateY(calc(100% - 54px)); /* Leaves the toggle button exactly visible */
+  }
+  
+  .viewer-3d__ui.collapsed .viewer-3d__ui-toggle i {
+    transform: rotate(180deg);
+  }
+  
   .viewer-3d__scene {
-    padding: 0 1rem;
+    padding: 0;
+    align-items: center; /* Centers horizontally and vertically */
+    height: 100%;
   }
   
   .scene-sheet {
-    flex: 0 0 calc(100% - 2rem);
-    height: 70vh;
-    margin-right: 1rem;
-    padding: 0.5rem;
+    flex: 0 0 100%; /* Take full width */
+    width: 100%;
+    height: 100%; /* Scale height accordingly based on width using object-fit */
+    max-height: 100%;
+    margin-right: 0; /* Remove gap so swipe works cleanly */
+    padding: 0; /* Image touches edges */
+    object-fit: contain;
   }
   
   .viewer-3d__close {
@@ -888,21 +928,48 @@ button {
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
   }
+
+  .viewer-3d__ui-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    color: #fff;
+    background: transparent;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+  }
+  
+  .viewer-3d__ui-toggle i {
+    transition: transform 0.3s var(--ease);
+    width: 16px;
+    height: 16px;
+  }
   
   .viewer-3d__progress {
-    top: 1rem;
-    left: 1rem;
-    bottom: auto;
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
     right: auto;
+    bottom: auto;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
   }
   
   .viewer-3d__title {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+    padding-right: 0; /* Removed padding */
   }
   
   .viewer-3d__meta {
-    gap: 0.5rem;
+    gap: 0.8rem;
   }
   
   .viewer-3d__scroll-hint {

@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="assets/css/print.css" media="print">
 
   <!-- Data -->
-  <script src="data/projects.js" defer></script>
+  <script src="data/projects.js?v=2" defer></script>
   <script src="assets/js/main.js" defer></script>
 </head>
 <body>
@@ -35,7 +35,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#works">Works</a></li>
-        <li><a href="#skills">Skills</a></li>
+
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
@@ -46,7 +46,7 @@
     <div class="hero__bg" aria-hidden="true"></div>
     <div class="hero__content container">
       <p class="hero__eyebrow anim-fade" data-delay="0">Portfolio 2026</p>
-      <h1 class="hero__name anim-fade" data-delay="100">Rutuja<br>Gosavi</h1>
+      <h1 class="hero__name anim-fade" data-delay="100">Rutuja Gosavi</h1>
       <p class="hero__title anim-fade" data-delay="200"><strong>ARCHITECT</strong></p>
       <p class="hero__tagline anim-fade" data-delay="300">Design · Detail · Delivery</p>
     </div>
@@ -164,7 +164,11 @@
     <div class="viewer-3d__overlay"></div>
     
     <!-- UI Overlay (Fixed) -->
-    <div class="viewer-3d__ui">
+    <div class="viewer-3d__ui" id="viewer-ui">
+      <button class="viewer-3d__ui-toggle" id="viewer-ui-toggle" aria-label="Toggle Details">
+        <span>Project Details</span>
+        <i data-lucide="chevron-down"></i>
+      </button>
       <div class="viewer-3d__info">
         <p class="viewer-3d__eyebrow" id="viewer-category"></p>
         <h2 class="viewer-3d__title" id="viewer-title"></h2>
@@ -176,12 +180,12 @@
           <span>Scroll to zoom<br>Drag to pan</span>
         </div>
       </div>
-      
-      <div class="viewer-3d__progress" id="viewer-progress">0 / 0</div>
     </div>
     
     <!-- 3D Scene Wrapper -->
     <div class="viewer-3d__viewport">
+      <div class="viewer-3d__progress" id="viewer-progress">0 / 0</div>
+
       <button class="viewer-3d__close" id="viewer-close" aria-label="Close 3D View">
         <i data-lucide="x"></i>
         <span>Close</span>
@@ -202,52 +206,7 @@
     </div>
   </div>
 
-  <!-- ─── Skills & Tools ─────────────────────────────────────────────── -->
-  <section id="skills" class="section skills-section">
-    <div class="container">
-      <div class="section__header anim-slide-up">
-        <span class="section__number">04</span>
-        <h2 class="section__title">Skills &amp; Expertise</h2>
-      </div>
 
-      <div class="skills__grid">
-        <div class="skills__category anim-slide-up" data-delay="0">
-          <span class="skills__cat-number">01</span>
-          <h3 class="skills__cat-title">Architecture &amp; Space Planning</h3>
-          <p class="skills__cat-desc">Concept design, zoning, circulation and spatial development.</p>
-        </div>
-        <div class="skills__category anim-slide-up" data-delay="100">
-          <span class="skills__cat-number">02</span>
-          <h3 class="skills__cat-title">Interior Design</h3>
-          <p class="skills__cat-desc">Furniture planning, materials, lighting and detailed elevations.</p>
-        </div>
-        <div class="skills__category anim-slide-up" data-delay="200">
-          <span class="skills__cat-number">03</span>
-          <h3 class="skills__cat-title">Working Drawings</h3>
-          <p class="skills__cat-desc">Plans, sections, elevations, services and execution details.</p>
-        </div>
-        <div class="skills__category anim-slide-up" data-delay="300">
-          <span class="skills__cat-number">04</span>
-          <h3 class="skills__cat-title">Revit &amp; Digital Modeling</h3>
-          <p class="skills__cat-desc">Revit documentation, coordinated models, 3D assets and renders.</p>
-        </div>
-      </div>
-
-      <div class="skills__tools anim-slide-up" data-delay="400">
-        <span class="skills__tools-label">Tools</span>
-        <div class="skills__tools-list">
-          <span class="pill">AutoCAD</span>
-          <span class="pill">Revit</span>
-          <span class="pill">SketchUp</span>
-          <span class="pill">Rhino</span>
-          <span class="pill">Lumion</span>
-          <span class="pill">Photoshop</span>
-          <span class="pill">Adobe Creative Suite</span>
-          <span class="pill">Microsoft 365</span>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ─── Contact / Footer ───────────────────────────────────────────── -->
   <footer id="contact" class="section footer">
