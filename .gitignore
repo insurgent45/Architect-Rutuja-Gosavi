@@ -1,4 +1,5 @@
 Material/
 *.pdf
+!Rutuja_Gosavi_Portfolio.pdf
 node_modules/
 .DS_Store
